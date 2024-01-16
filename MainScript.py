@@ -19,7 +19,7 @@ print("""\
       """)
 device_group = input("\033[1;32;40m Enter the Device_Group: ")
 print("\033[1;33;40m Apps(1)     Apps-Group(2)     Serv(3)     Serv-Group(4)     Addr(5)     Addr-Groups(6)     Rules(7)")
-input = input("\033[1;32;40m Enter one of the options: ")
+option = input("\033[1;32;40m Enter one of the options: ")
 print('')
 
 ##### DeviceGroup Configuration #####
@@ -36,43 +36,43 @@ rules = (f'show device-group {device_group} pre-rulebase security rules ')
 
 cli_inserts =[]
 ##### Applications/Application-Groups #####
-if input == "1":
+if option == "1":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{show_application}{varivel}')
         cli_inserts.append(shows)
-elif input == "2":
+elif option == "2":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{show_application_group}{varivel}')
         cli_inserts.append(shows)
 
 ##### Services/Service-Groups #####
-elif input == "3":
+elif option == "3":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{show_service}{varivel}')
         cli_inserts.append(shows)
-elif input == "4":
+elif option == "4":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{show_service_group}{varivel}')
         cli_inserts.append(shows)
 
 ##### Address/Address-Groups #####
-elif input == "5":
+elif option == "5":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{show_address}{varivel}')
         cli_inserts.append(shows)
-elif input == "6":
+elif option == "6":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{show_address_group}{varivel}')
         cli_inserts.append(shows)
 
 ##### Rules #####
-elif input == "7":
+elif option == "7":
     for valores in objects:
         varivel = (f'"{valores}"')
         shows = (f'{rules}{varivel}')
@@ -80,7 +80,7 @@ elif input == "7":
 
 ##### Incorrect Selection #####
 else:
-    print(f'\033[1;33;40m Option {input} Not Configured! Try again.')
+    print(f'\033[1;33;40m Option {option} Not Configured! Try again.')
 
 ##### Informs #####
 print("\033[1;31;40m 15 Seconds to Start the Script !!!!!")
