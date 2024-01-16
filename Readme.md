@@ -4,11 +4,9 @@
 
 ## 💻 Prerequisites
 
-Before you begin, make sure you have met the following requirements:
+Before you begin, make sure you have the required packages by running the command below:
 
-* You have installed the Pandas library `<pip install pyautogui>`
-* You have installed the Requests library `<pip install pyperclip>`
-* You have installed the Requests library `<pip install time>`
+* Install all necessary packages: `!pip install -r requirements.txt`
 
 ## 🚀 Using the PaloAlto CLI Show Script
 
