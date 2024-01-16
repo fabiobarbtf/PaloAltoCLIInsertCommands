@@ -4,9 +4,9 @@ import pyautogui
 import pyperclip
 
 ##### Objects Imports #####
-with open('ObjectBase.txt', 'r') as arquivo:
-    objects =  arquivo.readlines()
-objects = [arquivo.strip('\n') for arquivo in objects]
+with open('ObjectBase.txt', 'r') as file:
+    objects =  file.readlines()
+objects = [file.strip('\n') for file in objects]
 
 ##### Objetive Definition #####
 print("""\
@@ -17,22 +17,22 @@ print("""\
 |_|   \__,_|_|\___/_/   \_\_|\__\___/   \____|_____|___| |____/|_| |_|\___/ \_/\_/   |____/ \___|_|  |_| .__/ 
                                                                                                        |_|    
       """)
-device_grop = input("\033[1;32;40m Enter the Device_Group: ")
+device_group = input("\033[1;32;40m Enter the Device_Group: ")
 print("\033[1;33;40m Apps(1)     Apps-Group(2)     Serv(3)     Serv-Group(4)     Addr(5)     Addr-Groups(6)     Rules(7)")
 input = input("\033[1;32;40m Enter one of the options: ")
 print('')
 
 ##### DeviceGroup Configuration #####
-show_application = (f'show device-group {device_grop} application ')
-show_application_group = (f'show device-group {device_grop} application-group ')
+show_application = (f'show device-group {device_group} application ')
+show_application_group = (f'show device-group {device_group} application-group ')
 
-show_service = (f'show device-group {device_grop} service ')
-show_service_group = (f'show device-group {device_grop} service-group ')
+show_service = (f'show device-group {device_group} service ')
+show_service_group = (f'show device-group {device_group} service-group ')
 
-show_address = (f'show device-group {device_grop} address ')
-show_address_group = (f'show device-group {device_grop} address-group ')
+show_address = (f'show device-group {device_group} address ')
+show_address_group = (f'show device-group {device_group} address-group ')
 
-rules = (f'show device-group {device_grop} pre-rulebase security rules ')
+rules = (f'show device-group {device_group} pre-rulebase security rules ')
 
 cli_inserts =[]
 ##### Applications/Application-Groups #####
