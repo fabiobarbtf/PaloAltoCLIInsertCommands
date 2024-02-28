@@ -7,9 +7,9 @@
 Before you begin, make sure you have met the following requirements:
 
 * You have installed the Pandas library `<pip install pyautogui>`
-* You have installed the Requests library `<pip install pyperclip>`
-* You have installed the Requests library `<pip install keyboard`
-* You have installed the Requests library `<pip install time>`
+* You have installed the RYperclip library `<pip install pyperclip>`
+* You have installed the Keyboard library `<pip install keyboard`
+* You have installed the Time library `<pip install time>`
 
 ## 🚀 Using the PaloAlto CLI Show Script
 
