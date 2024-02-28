@@ -1,98 +1,153 @@
-##### Imports #####
+##### Importações #####
 import time
 import pyautogui
 import pyperclip
+import keyboard
 
-##### Objects Imports #####
-with open('ObjectBase.txt', 'r') as arquivo:
-    objects =  arquivo.readlines()
+##### Import de Objetos #####
+with open("ObjectBase.txt", "r") as arquivo:
+    objects = arquivo.readlines()
 objects = [arquivo.strip('\n') for arquivo in objects]
 
-##### Objetive Definition #####
+##### Definição de Objetivo #####
 print("""\
-       ____       _         _    _ _           ____ _     ___   ____  _                     ____            _       
-|  _ \ __ _| | ___   / \  | | |_ ___    / ___| |   |_ _| / ___|| |__   _____      __ / ___|  ___ _ __(_)_ __  
-| |_) / _` | |/ _ \ / _ \ | | __/ _ \  | |   | |    | |  \___ \| '_ \ / _ \ \ /\ / / \___ \ / __| '__| | '_ \ 
-|  __/ (_| | | (_) / ___ \| | || (_) | | |___| |___ | |   ___) | | | | (_) \ V  V /   ___) | (__| |  | | |_) |
-|_|   \__,_|_|\___/_/   \_\_|\__\___/   \____|_____|___| |____/|_| |_|\___/ \_/\_/   |____/ \___|_|  |_| .__/ 
-                                                                                                       |_|    
-      """)
-device_grop = input("\033[1;32;40m Enter the Device_Group: ")
-print("\033[1;33;40m Apps(1)     Apps-Group(2)     Serv(3)     Serv-Group(4)     Addr(5)     Addr-Groups(6)     Rules(7)")
-input = input("\033[1;32;40m Enter one of the options: ")
+\033[1;31;40m   ____ _______ _____       _____ _                                 ______                     _            
+\033[1;31;40m  |  _ \__   __/ ____|     / ____| |                               |  ____|                   | |           
+\033[1;31;40m  | |_) | | | | |  __     | |    | |__   __ _ _ __   __ _  ___     | |__  __  _____  ___ _   _| |_ ___ _ __ 
+\033[1;31;40m  |  _ <  | | | | |_ |    | |    | '_ \ / _` | '_ \ / _` |/ _ \    |  __| \ \/ / _ \/ __| | | | __/ _ \ '__|
+\033[1;31;40m  | |_) | | | | |__| |    | |____| | | | (_| | | | | (_| |  __/    | |____ >  <  __/ (__| |_| | ||  __/ |   
+\033[1;31;40m  |____/  |_|  \_____|     \_____|_| |_|\__,_|_| |_|\__, |\___|    |______/_/\_\___|\___|\__,_|\__\___|_|   
+\033[1;31;40m                                                     __/ |                                                  
+\033[1;31;40m                                                    |___/                                                   
+""")
+##### Escolha de Configuração de CLI #####
+cli_configuration = input("""\
+\033[1;31;40m CONFIGURAÇÃO DE CLI!
+        \033[1;33;40m Deseja que o script execute os comandos de configuração na CLI?
+            \033[1;34;40m set cli config-output-format set
+            \033[1;34;40m set cli pager off
+            \033[1;34;40m configure
+\033[1;32;40m  Digite S/N:""")
+if cli_configuration.lower() == "n":
+    print("\033[1;37;40m  Configurações de CLI não serão executadas!")
+    print('')
+elif cli_configuration.lower() != "s":
+    print("\033[1;37;40m  Opção não configurada, reinicie o script!")
+    print('')
+    input()
+    exit()
+elif cli_configuration.lower() == "s":
+    print("\033[1;37;40m  Configurações de CLI serão executadas!")
+    print('')
+time.sleep(0.50)
+
+##### Escolha de Contagem de Linhas #####
+pause_configuration = input("""\
+\033[1;31;40m PAUSA DE EXECUÇÃO!
+        \033[1;33;40m Deseja que o script pause após uma certa quantidade de linhas inseridas?
+\033[1;32;40m  Digite S/N:""")
+if pause_configuration.lower() == "n":
+    print("\033[1;37;40m  As pausas de script não serão executadas!")
+    print('')
+elif pause_configuration.lower() != "s":
+    print("\033[1;37;40m  Opção não configurada, reinicie o script!")
+    print('')
+    input()
+    exit()
+elif pause_configuration.lower() == "s":
+    time.sleep(0.25)
+    try:
+        pause_count = int(input("""\
+        \033[1;33;40m Informe o número de linhas inseridas por pausa!
+\033[1;32;40m  Informa um número inteiro:"""))
+        print(f"\033[1;37;40m  As Pausas de script serão executadas a cada {pause_count} linhas!")
+        print('')
+    except:
+        print(f"\033[1;37;40m  O Valor informado não é um número inteiro, reinicie o script!")
+        print('')
+        input()
+        exit()
+    
+##### Configuração de Execução de Script #####
+cli_inserts = []
+for valores in objects:
+    cli_inserts.append(valores)
+
+##### Informativo de Inicio de Script #####
+print("\033[1;31;40m 10 Segundos Para Inicio do Script !!!")
+print("\033[1;31;40m Colocar Cursor do Mouse no Terminal (Preferencia no Final!)")
 print('')
+print("\033[1;33;40m Para Cancelar o Script, Basta Entrar no Terminal do VSCode e dar Ctrl+C")
+print('')
+time.sleep(10)
 
-##### DeviceGroup Configuration #####
-show_application = (f'show device-group {device_grop} application ')
-show_application_group = (f'show device-group {device_grop} application-group ')
-
-show_service = (f'show device-group {device_grop} service ')
-show_service_group = (f'show device-group {device_grop} service-group ')
-
-show_address = (f'show device-group {device_grop} address ')
-show_address_group = (f'show device-group {device_grop} address-group ')
-
-rules = (f'show device-group {device_grop} pre-rulebase security rules ')
-
-cli_inserts =[]
-##### Applications/Application-Groups #####
-if input == "1":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{show_application}{varivel}')
-        cli_inserts.append(shows)
-elif input == "2":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{show_application_group}{varivel}')
-        cli_inserts.append(shows)
-
-##### Services/Service-Groups #####
-elif input == "3":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{show_service}{varivel}')
-        cli_inserts.append(shows)
-elif input == "4":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{show_service_group}{varivel}')
-        cli_inserts.append(shows)
-
-##### Address/Address-Groups #####
-elif input == "5":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{show_address}{varivel}')
-        cli_inserts.append(shows)
-elif input == "6":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{show_address_group}{varivel}')
-        cli_inserts.append(shows)
-
-##### Rules #####
-elif input == "7":
-    for valores in objects:
-        varivel = (f'"{valores}"')
-        shows = (f'{rules}{varivel}')
-        cli_inserts.append(shows)
-
-##### Incorrect Selection #####
-else:
-    print(f'\033[1;33;40m Option {input} Not Configured! Try again.')
-
-##### Informs #####
-print("\033[1;31;40m 15 Seconds to Start the Script !!!!!")
-print("\033[1;31;40m Position the Cursor in the Terminal (Preferably at the End!)")
-time.sleep(15)
-
-##### CLI Objects Inserts #####
-for executes in cli_inserts:
+##### Configuração da CLI #####
+cli_set = "set cli config-output-format set"
+cli_pager = "set cli pager off"
+cli_config = "configure"
+if cli_configuration.lower() == 's':
     pyautogui.click(button='left')
-    pyperclip.copy(executes)
+    time.sleep(0.20)
+    pyperclip.copy(cli_set)
     pyautogui.click(button='right')
     pyautogui.press('enter')
-    print(f"\033[1;31;40m {executes} Inserted in the Terminal!")
     time.sleep(0.50)
-print("\033[1;33;40m All Objects Have Been Inserted into the Terminal! Script Closed.")
+    pyperclip.copy(cli_pager)
+    pyautogui.click(button='right')
+    pyautogui.press('enter')
+    time.sleep(0.50)
+    pyperclip.copy(cli_config)
+    pyautogui.click(button='right')
+    pyautogui.press('enter')
+    print("\033[1;31;40m CLI Configurada, iniciando script!!!")
+    time.sleep(0.50)
+
+##### Laço de Repetição Principal - Com Pause #####
+if pause_configuration.lower() == "s":
+    pyautogui.click(button='left')
+    const = 0
+    while True:
+        for executes in cli_inserts:
+            ##### Opção de Parar o Script #####
+            const = const + 1
+            if const == pause_count:
+                print('')
+                print("\033[1;31;40m Pause para validação de execuções! Validar na CLI.")
+                print("\033[1;34;40m Ctrl+Shift para Continuar o script!")
+                print('')
+                keyboard.wait('Ctrl+Shift')
+                print("\033[1;34;40m Continuando Script!")
+                const = const - pause_count
+                time.sleep(0.20)
+            ##### Inserção de Código no Terminal #####
+            pyperclip.copy(executes)
+            time.sleep(0.10)
+            pyautogui.click(button='right')
+            time.sleep(0.20)
+            pyautogui.press('enter')
+            print(f'\033[0;37;40m Comando Inserido no Temrinal: {executes}')
+            time.sleep(0.30)
+        print('')
+        print('\033[92m Script Encerrado.')
+        print('')
+        input()
+        exit()
+##### Laço de Repetição Principal - Sem Pause #####
+elif pause_configuration.lower() == "n":
+    pyautogui.click(button='left')
+    const = 0
+    while True:
+        for executes in cli_inserts:
+            ##### Inserção de Código no Terminal #####
+            pyperclip.copy(executes)
+            time.sleep(0.10)
+            pyautogui.click(button='right')
+            time.sleep(0.20)
+            pyautogui.press('enter')
+            print(f'\033[0;37;40m Comando Inserido no Temrinal: {executes}')
+            time.sleep(0.30)
+        print('')
+        print('\033[92m Script Encerrado.')
+        print('')
+        input()
+        exit()
