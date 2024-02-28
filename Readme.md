@@ -1,4 +1,4 @@
-# PaloAlto CLI Show Script
+# PaloAlto CLI Insert Commands
 
 > The script consists of copying and pasting the objects entered by the user into the PaloAlto SSH CLI.
 
