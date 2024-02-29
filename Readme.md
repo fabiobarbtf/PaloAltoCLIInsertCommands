@@ -15,8 +15,6 @@ Before you begin, make sure you have met the following requirements:
 
 To use the PaloAlto CLI Show Script, follow these steps:
 
-First! Configure the PaltoAlto CLI by disabling paging and entering configuration mode.
-
 1. Enter all the commands line by line that you want to execute in the "ObjectBase.txt" file.
       Remeber! The Script and the "ObjectBase.txt" file must be in the same directory.
 2. Start the script!
